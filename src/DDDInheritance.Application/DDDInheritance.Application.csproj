@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MiniExcel" Version="1.26.2" />
     <ProjectReference Include="..\DDDInheritance.Domain\DDDInheritance.Domain.csproj" />
     <ProjectReference Include="..\DDDInheritance.Application.Contracts\DDDInheritance.Application.Contracts.csproj" />
   	<PackageReference Include="Volo.Abp.LeptonTheme.Management.Application" Version="7.0.0" />

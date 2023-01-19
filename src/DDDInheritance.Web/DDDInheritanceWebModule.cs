@@ -85,7 +85,7 @@ namespace DDDInheritance.Web;
     typeof(AbpGdprWebModule),
     typeof(AbpSwashbuckleModule),
     typeof(AbpAspNetCoreSerilogModule),
-	typeof(LeptonThemeManagementWebModule)
+    typeof(LeptonThemeManagementWebModule)
     )]
 public class DDDInheritanceWebModule : AbpModule
 {
@@ -106,7 +106,7 @@ public class DDDInheritanceWebModule : AbpModule
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
-        
+
         if (!Convert.ToBoolean(configuration["App:DisablePII"]))
         {
             Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
@@ -128,7 +128,7 @@ public class DDDInheritanceWebModule : AbpModule
         ConfigureBackgroundJobs();
         ConfigureCookieConsent(context);
     }
-    
+
     private void ConfigureCookieConsent(ServiceConfigurationContext context)
     {
         context.Services.AddAbpCookieConsent(options =>
@@ -138,7 +138,6 @@ public class DDDInheritanceWebModule : AbpModule
             options.PrivacyPolicyUrl = "/PrivacyPolicy";
         });
     }
-
 
     private void ConfigureBackgroundJobs()
     {
@@ -168,6 +167,7 @@ public class DDDInheritanceWebModule : AbpModule
         {
             options.Conventions.AuthorizePage("/HostDashboard", DDDInheritancePermissions.Dashboard.Host);
             options.Conventions.AuthorizePage("/TenantDashboard", DDDInheritancePermissions.Dashboard.Tenant);
+            options.Conventions.AuthorizePage("/Commons/Index", DDDInheritancePermissions.Commons.Default);
         });
     }
 
@@ -221,42 +221,42 @@ public class DDDInheritanceWebModule : AbpModule
                 options.Scope.Add("phone");
                 options.Scope.Add("DDDInheritance");
             });
-            /*
-            * This configuration is used when the AuthServer is running on docker containers at localhost.
-            * Configuring the redirectin URLs for internal network and the web
-            */
-            if (Convert.ToBoolean(configuration["AuthServer:IsContainerizedOnLocalhost"]))
+        /*
+        * This configuration is used when the AuthServer is running on docker containers at localhost.
+        * Configuring the redirectin URLs for internal network and the web
+        */
+        if (Convert.ToBoolean(configuration["AuthServer:IsContainerizedOnLocalhost"]))
+        {
+            context.Services.Configure<OpenIdConnectOptions>("oidc", options =>
             {
-                context.Services.Configure<OpenIdConnectOptions>("oidc", options =>
+                options.MetadataAddress = configuration["AuthServer:MetaAddress"].EnsureEndsWith('/') +
+                                        ".well-known/openid-configuration";
+
+                var previousOnRedirectToIdentityProvider = options.Events.OnRedirectToIdentityProvider;
+                options.Events.OnRedirectToIdentityProvider = async ctx =>
                 {
-                    options.MetadataAddress = configuration["AuthServer:MetaAddress"].EnsureEndsWith('/') +
-                                            ".well-known/openid-configuration";
-
-                    var previousOnRedirectToIdentityProvider = options.Events.OnRedirectToIdentityProvider;
-                    options.Events.OnRedirectToIdentityProvider = async ctx =>
-                    {
                         // Intercept the redirection so the browser navigates to the right URL in your host
-                        ctx.ProtocolMessage.IssuerAddress = configuration["AuthServer:Authority"].EnsureEndsWith('/') + "connect/authorize";
+                    ctx.ProtocolMessage.IssuerAddress = configuration["AuthServer:Authority"].EnsureEndsWith('/') + "connect/authorize";
 
-                        if (previousOnRedirectToIdentityProvider != null)
-                        {
-                            await previousOnRedirectToIdentityProvider(ctx);
-                        }
-                    };
-                    var previousOnRedirectToIdentityProviderForSignOut = options.Events.OnRedirectToIdentityProviderForSignOut;
-                    options.Events.OnRedirectToIdentityProviderForSignOut = async ctx =>
+                    if (previousOnRedirectToIdentityProvider != null)
                     {
+                        await previousOnRedirectToIdentityProvider(ctx);
+                    }
+                };
+                var previousOnRedirectToIdentityProviderForSignOut = options.Events.OnRedirectToIdentityProviderForSignOut;
+                options.Events.OnRedirectToIdentityProviderForSignOut = async ctx =>
+                {
                         // Intercept the redirection for signout so the browser navigates to the right URL in your host
-                        ctx.ProtocolMessage.IssuerAddress = configuration["AuthServer:Authority"].EnsureEndsWith('/') + "connect/endsession";
+                    ctx.ProtocolMessage.IssuerAddress = configuration["AuthServer:Authority"].EnsureEndsWith('/') + "connect/endsession";
 
-                        if (previousOnRedirectToIdentityProviderForSignOut != null)
-                        {
-                            await previousOnRedirectToIdentityProviderForSignOut(ctx);
-                        }
-                    };
-                });
+                    if (previousOnRedirectToIdentityProviderForSignOut != null)
+                    {
+                        await previousOnRedirectToIdentityProviderForSignOut(ctx);
+                    }
+                };
+            });
 
-            }
+        }
     }
 
     private void ConfigureImpersonation(ServiceConfigurationContext context, IConfiguration configuration)
@@ -331,7 +331,7 @@ public class DDDInheritanceWebModule : AbpModule
             dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, "DDDInheritance-Protection-Keys");
         }
     }
-    
+
     private void ConfigureDistributedLocking(
                 ServiceConfigurationContext context,
                 IConfiguration configuration)

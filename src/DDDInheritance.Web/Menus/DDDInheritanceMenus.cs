@@ -1,4 +1,4 @@
-﻿namespace DDDInheritance.Web.Menus;
+namespace DDDInheritance.Web.Menus;
 
 public class DDDInheritanceMenus
 {
@@ -9,4 +9,6 @@ public class DDDInheritanceMenus
     public const string HostDashboard = Prefix + ".HostDashboard";
 
     public const string TenantDashboard = Prefix + ".TenantDashboard";
+    public const string Commons = Prefix + ".Commons";
+
 }

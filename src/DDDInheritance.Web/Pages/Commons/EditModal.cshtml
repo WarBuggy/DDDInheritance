@@ -1,0 +1,36 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using DDDInheritance.Localization
+@using DDDInheritance.Web.Pages.Commons
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using DDDInheritance.Commons;
+@using System.Globalization
+@inject IHtmlLocalizer<DDDInheritanceResource> L
+@model EditModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Commons/EditModal" autocomplete="off">
+    <abp-modal id="CommonEditModal">
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    <abp-input asp-for="Id" />
+                    <abp-input asp-for="Common.ConcurrencyStamp" hidden="true" suppress-label="true"/>
+                    
+            <abp-input asp-for="Common.Code" />
+
+            <abp-input asp-for="Common.Name" />
+
+            <abp-select asp-for="Common.Status" />
+
+            <abp-input asp-for="Common.Linked" />
+
+                    
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

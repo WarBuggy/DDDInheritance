@@ -16,6 +16,11 @@ public class DDDInheritancePermissionDefinitionProvider : PermissionDefinitionPr
 
         //Define your own permissions here. Example:
         //myGroup.AddPermission(DDDInheritancePermissions.MyPermission1, L("Permission:MyPermission1"));
+
+        var commonPermission = myGroup.AddPermission(DDDInheritancePermissions.Commons.Default, L("Permission:Commons"));
+        commonPermission.AddChild(DDDInheritancePermissions.Commons.Create, L("Permission:Create"));
+        commonPermission.AddChild(DDDInheritancePermissions.Commons.Edit, L("Permission:Edit"));
+        commonPermission.AddChild(DDDInheritancePermissions.Commons.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

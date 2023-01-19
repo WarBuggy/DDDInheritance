@@ -1,3 +1,5 @@
+using DDDInheritance.Commons;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -28,6 +30,7 @@ public class DDDInheritanceDbContext :
     IIdentityProDbContext,
     ISaasDbContext
 {
+    public DbSet<Common> Commons { get; set; }
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
     #region Entities from the modules
@@ -91,5 +94,15 @@ public class DDDInheritanceDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+        builder.Entity<Common>(b =>
+    {
+        b.ToTable(DDDInheritanceConsts.DbTablePrefix + "Commons", DDDInheritanceConsts.DbSchema);
+        b.ConfigureByConvention();
+        b.Property(x => x.TenantId).HasColumnName(nameof(Common.TenantId));
+        b.Property(x => x.Code).HasColumnName(nameof(Common.Code)).IsRequired().HasMaxLength(CommonConsts.CodeMaxLength);
+        b.Property(x => x.Name).HasColumnName(nameof(Common.Name)).HasMaxLength(CommonConsts.NameMaxLength);
+        b.Property(x => x.Status).HasColumnName(nameof(Common.Status));
+        b.Property(x => x.Linked).HasColumnName(nameof(Common.Linked));
+    });
     }
 }

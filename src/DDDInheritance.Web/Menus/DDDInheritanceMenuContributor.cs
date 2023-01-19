@@ -1,4 +1,6 @@
-﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Threading.Tasks;
 using Localization.Resources.AbpUi;
 using Microsoft.Extensions.Configuration;
@@ -77,7 +79,6 @@ public class DDDInheritanceMenuContributor : IMenuContributor
         //Saas
         context.Menu.SetSubItemOrder(SaasHostMenuNames.GroupName, 3);
 
-
         //Administration
         var administration = context.Menu.GetAdministration();
         administration.Order = 5;
@@ -100,6 +101,14 @@ public class DDDInheritanceMenuContributor : IMenuContributor
         //Administration->Settings
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 6);
 
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                DDDInheritanceMenus.Commons,
+                l["Menu:Commons"],
+                url: "/Commons",
+                icon: "fa fa-file-alt",
+                requiredPermissionName: DDDInheritancePermissions.Commons.Default)
+        );
         return Task.CompletedTask;
     }
 

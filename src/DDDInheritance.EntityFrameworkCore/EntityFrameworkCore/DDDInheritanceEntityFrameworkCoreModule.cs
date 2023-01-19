@@ -1,3 +1,4 @@
+using DDDInheritance.Commons;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Uow;
@@ -46,15 +47,17 @@ public class DDDInheritanceEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<DDDInheritanceDbContext>(options =>
         {
-                /* Remove "includeAllEntities: true" to create
-                 * default repositories only for aggregate roots */
+            /* Remove "includeAllEntities: true" to create
+             * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
+            options.AddRepository<Common, Commons.EfCoreCommonRepository>();
+
         });
 
         Configure<AbpDbContextOptions>(options =>
         {
-                /* The main point to change your DBMS.
-                 * See also DDDInheritanceDbContextFactory for EF Core tooling. */
+            /* The main point to change your DBMS.
+             * See also DDDInheritanceDbContextFactory for EF Core tooling. */
             options.UseSqlServer();
         });
 
