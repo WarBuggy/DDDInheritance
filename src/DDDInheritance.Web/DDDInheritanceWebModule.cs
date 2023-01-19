@@ -167,7 +167,6 @@ public class DDDInheritanceWebModule : AbpModule
         {
             options.Conventions.AuthorizePage("/HostDashboard", DDDInheritancePermissions.Dashboard.Host);
             options.Conventions.AuthorizePage("/TenantDashboard", DDDInheritancePermissions.Dashboard.Tenant);
-            options.Conventions.AuthorizePage("/Commons/Index", DDDInheritancePermissions.Commons.Default);
         });
     }
 

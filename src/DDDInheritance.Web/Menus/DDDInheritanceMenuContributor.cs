@@ -101,14 +101,6 @@ public class DDDInheritanceMenuContributor : IMenuContributor
         //Administration->Settings
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 6);
 
-        context.Menu.AddItem(
-            new ApplicationMenuItem(
-                DDDInheritanceMenus.Commons,
-                l["Menu:Commons"],
-                url: "/Commons",
-                icon: "fa fa-file-alt",
-                requiredPermissionName: DDDInheritancePermissions.Commons.Default)
-        );
         return Task.CompletedTask;
     }
 

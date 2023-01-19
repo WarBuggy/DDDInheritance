@@ -32,7 +32,7 @@
     "Enum:Status.3": "CLOSED",
     "Enum:Status.4": "CANCELLED",
     "Permission:Commons": "Commons",
-    "Permission:DDDInheritance": "D D D Inheritance",
+    "Permission:DDDInheritance": "DDD Inheritance",
     "Permission:Create": "Create",
     "Permission:Edit": "Edit",
     "Permission:Delete": "Delete",
@@ -51,6 +51,6 @@
     "Status": "Status",
     "Linked": "Linked",
     "Menu:Commons": "Commons",
-    "Menu:DDDInheritance": "D D D Inheritance"
+    "Menu:DDDInheritance": "DDD Inheritance"
   }
 }
