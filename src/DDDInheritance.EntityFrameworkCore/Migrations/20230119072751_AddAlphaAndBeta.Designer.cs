@@ -4,6 +4,7 @@ using DDDInheritance.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DDDInheritance.Migrations
 {
     [DbContext(typeof(DDDInheritanceDbContext))]
-    partial class DDDInheritanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230119072751_AddAlphaAndBeta")]
+    partial class AddAlphaAndBeta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
