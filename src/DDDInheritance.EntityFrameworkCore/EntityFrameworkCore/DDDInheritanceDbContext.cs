@@ -19,6 +19,9 @@ using Volo.Saas.Editions;
 using Volo.Saas.Tenants;
 using Volo.Abp.Gdpr;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
+using DDDInheritance.Alphas;
+using DDDInheritance.Betas;
+using System.Reflection.Emit;
 
 namespace DDDInheritance.EntityFrameworkCore;
 
@@ -31,6 +34,8 @@ public class DDDInheritanceDbContext :
     ISaasDbContext
 {
     public DbSet<Common> Commons { get; set; }
+    public DbSet<Alpha> Alphas { get; set; }
+    public DbSet<Beta> Betas { get; set; }
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
     #region Entities from the modules
@@ -94,15 +99,17 @@ public class DDDInheritanceDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+        //builder.Entity<Common>().UseTpcMappingStrategy();
         builder.Entity<Common>(b =>
-    {
-        b.ToTable(DDDInheritanceConsts.DbTablePrefix + "Commons", DDDInheritanceConsts.DbSchema);
-        b.ConfigureByConvention();
-        b.Property(x => x.TenantId).HasColumnName(nameof(Common.TenantId));
-        b.Property(x => x.Code).HasColumnName(nameof(Common.Code)).IsRequired().HasMaxLength(CommonConsts.CodeMaxLength);
-        b.Property(x => x.Name).HasColumnName(nameof(Common.Name)).HasMaxLength(CommonConsts.NameMaxLength);
-        b.Property(x => x.Status).HasColumnName(nameof(Common.Status));
-        b.Property(x => x.Linked).HasColumnName(nameof(Common.Linked));
-    });
+        {
+            b.UseTpcMappingStrategy();
+            //b.ToTable(DDDInheritanceConsts.DbTablePrefix + "Commons", DDDInheritanceConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(Common.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(Common.Code)).IsRequired().HasMaxLength(CommonConsts.CodeMaxLength);
+            b.Property(x => x.Name).HasColumnName(nameof(Common.Name)).HasMaxLength(CommonConsts.NameMaxLength);
+            b.Property(x => x.Status).HasColumnName(nameof(Common.Status));
+            b.Property(x => x.Linked).HasColumnName(nameof(Common.Linked));
+        });
     }
 }
