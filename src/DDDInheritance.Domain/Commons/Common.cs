@@ -12,7 +12,7 @@ using Volo.Abp;
 
 namespace DDDInheritance.Commons
 {
-    public class Common : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public abstract class Common : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         public virtual Guid? TenantId { get; set; }
 

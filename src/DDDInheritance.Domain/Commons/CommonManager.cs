@@ -20,19 +20,20 @@ namespace DDDInheritance.Commons
             _commonRepository = commonRepository;
         }
 
-        public async Task<Common> CreateAsync(
+        public Task<Common> CreateAsync(
         string code, string name, Status? status = null, Guid? linked = null)
         {
             Check.NotNullOrWhiteSpace(code, nameof(code));
             Check.Length(code, nameof(code), CommonConsts.CodeMaxLength, CommonConsts.CodeMinLength);
             Check.Length(name, nameof(name), CommonConsts.NameMaxLength);
 
-            var common = new Common(
-             GuidGenerator.Create(),
-             code, name, status, linked
-             );
+            //var common = new Common(
+            // GuidGenerator.Create(),
+            // code, name, status, linked
+            // );
 
-            return await _commonRepository.InsertAsync(common);
+            //return await _commonRepository.InsertAsync(common);
+            return null;
         }
 
         public async Task<Common> UpdateAsync(
