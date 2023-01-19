@@ -17,6 +17,8 @@ using Volo.Abp.Authorization;
 using Volo.Abp.Caching;
 using Microsoft.Extensions.Caching.Distributed;
 using DDDInheritance.Shared;
+using Volo.Abp.Domain.Entities;
+using Volo.Abp.ObjectMapping;
 
 namespace DDDInheritance.Commons
 {
@@ -25,10 +27,10 @@ namespace DDDInheritance.Commons
     public class CommonsAppService : ApplicationService, ICommonsAppService
     {
         private readonly IDistributedCache<CommonExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICommonRepository _commonRepository;
+        private readonly ICommonRepository<Common> _commonRepository;
         private readonly CommonManager _commonManager;
 
-        public CommonsAppService(ICommonRepository commonRepository, CommonManager commonManager, IDistributedCache<CommonExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
+        public CommonsAppService(ICommonRepository<Common> commonRepository, CommonManager commonManager, IDistributedCache<CommonExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
         {
             _excelDownloadTokenCache = excelDownloadTokenCache;
             _commonRepository = commonRepository;
@@ -43,7 +45,7 @@ namespace DDDInheritance.Commons
             return new PagedResultDto<CommonDto>
             {
                 TotalCount = totalCount,
-                Items = ObjectMapper.Map<List<Common>, List<CommonDto>>(items)
+                Items = ObjectMapper.Map<List<Common>, List<CommonDto>>(items.Cast<Common>().ToList())
             };
         }
 
@@ -93,7 +95,7 @@ namespace DDDInheritance.Commons
             var items = await _commonRepository.GetListAsync(input.FilterText, input.Code, input.Name, input.Status, input.Linked);
 
             var memoryStream = new MemoryStream();
-            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<Common>, List<CommonExcelDto>>(items));
+            await memoryStream.SaveAsAsync(ObjectMapper.Map<List<Common>, List<CommonExcelDto>>(items.Cast<Common>().ToList()));
             memoryStream.Seek(0, SeekOrigin.Begin);
 
             return new RemoteStreamContent(memoryStream, "Commons.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

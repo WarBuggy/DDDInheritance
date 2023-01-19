@@ -9,32 +9,33 @@ using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using DDDInheritance.EntityFrameworkCore;
+using Volo.Abp.Domain.Entities;
 
 namespace DDDInheritance.Commons
 {
-    public class EfCoreCommonRepository : EfCoreRepository<DDDInheritanceDbContext, Common, Guid>, ICommonRepository
+    public class EFCoreCommonRepository<TDbContext, TEntity> : EfCoreRepository<DDDInheritanceDbContext, TEntity, Guid>, ICommonRepository<TEntity>
+        where TEntity : Common
     {
-        public EfCoreCommonRepository(IDbContextProvider<DDDInheritanceDbContext> dbContextProvider)
-            : base(dbContextProvider)
+        public EFCoreCommonRepository(IDbContextProvider<DDDInheritanceDbContext> dbContextProvider)
+        : base(dbContextProvider)
         {
-
         }
 
-        public async Task<List<Common>> GetListAsync(
-            string filterText = null,
-            string code = null,
-            string name = null,
-            Status? status = null,
-            Guid? linked = null,
-            string sorting = null,
-            int maxResultCount = int.MaxValue,
-            int skipCount = 0,
-            CancellationToken cancellationToken = default)
-        {
-            var query = ApplyFilter((await GetQueryableAsync()), filterText, code, name, status, linked);
-            query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? CommonConsts.GetDefaultSorting(false) : sorting);
-            return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
-        }
+        //public async Task<List<Common>> GetListAsync(
+        //    string filterText = null,
+        //    string code = null,
+        //    string name = null,
+        //    Status? status = null,
+        //    Guid? linked = null,
+        //    string sorting = null,
+        //    int maxResultCount = int.MaxValue,
+        //    int skipCount = 0,
+        //    CancellationToken cancellationToken = default)
+        //{
+        //    var query = ApplyFilter((await GetQueryableAsync()), filterText, code, name, status, linked);
+        //    query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? CommonConsts.GetDefaultSorting(false) : sorting);
+        //    return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
+        //}
 
         public async Task<long> GetCountAsync(
             string filterText = null,
@@ -48,13 +49,13 @@ namespace DDDInheritance.Commons
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
-        protected virtual IQueryable<Common> ApplyFilter(
-            IQueryable<Common> query,
+        protected virtual IQueryable<IEntity> ApplyFilter<IEntity>(
+            IQueryable<IEntity> query,
             string filterText,
             string code = null,
             string name = null,
             Status? status = null,
-            Guid? linked = null)
+            Guid? linked = null) where IEntity : ICommon
         {
             return query
                     .WhereIf(!string.IsNullOrWhiteSpace(filterText), e => e.Code.Contains(filterText) || e.Name.Contains(filterText))
@@ -63,5 +64,43 @@ namespace DDDInheritance.Commons
                     .WhereIf(status.HasValue, e => e.Status == status)
                     .WhereIf(linked.HasValue, e => e.Linked == linked);
         }
+
+        public async Task<List<IEntity>> GetListAsync(
+            string filterText,
+            string code = null,
+            string name = null,
+            Status? status = null,
+            Guid? linked = null,
+            string sorting = null,
+            int maxResultCount = int.MaxValue,
+            int skipCount = 0,
+            CancellationToken cancellationToken = default)
+        {
+            var query = ApplyFilter((await GetQueryableAsync()), filterText, code, name, status, linked);
+            query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? CommonConsts.GetDefaultSorting(false) : sorting);
+            return await query.PageBy(skipCount, maxResultCount).ToListAsync<IEntity>(cancellationToken);
+        }
     }
 }
+
+/*
+ * 
+
+    public async Task<IQueryable<TEntity>> GetQueryableWithRelatedDataAsync()
+    {
+        return await DbSet.Include(x => x.Code).Include(x => x.Name).ToListAsync();
+    }
+
+    public async Task<IQueryable<TEntity>> GetQueryableAsNoTrackingAsync()
+    {
+        return DbSet.AsNoTracking();
+    }
+
+    public async Task<IQueryable<CommonDto>> GetQueryableWithSpecificPropertiesAsync()
+    {
+        return DbSet.Select(x => new CommonDto { Id = x.Id, Code = x.Code, Name = x.Name });
+    }
+
+*
+*
+*/

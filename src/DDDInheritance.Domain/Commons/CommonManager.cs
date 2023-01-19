@@ -13,9 +13,9 @@ namespace DDDInheritance.Commons
 {
     public class CommonManager : DomainService
     {
-        private readonly ICommonRepository _commonRepository;
+        private readonly ICommonRepository<Common> _commonRepository;
 
-        public CommonManager(ICommonRepository commonRepository)
+        public CommonManager(ICommonRepository<Common> commonRepository)
         {
             _commonRepository = commonRepository;
         }

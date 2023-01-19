@@ -50,7 +50,7 @@ public class DDDInheritanceEntityFrameworkCoreModule : AbpModule
             /* Remove "includeAllEntities: true" to create
              * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
-            options.AddRepository<Common, Commons.EfCoreCommonRepository>();
+            options.AddRepository<Common, Commons.EFCoreCommonRepository<DDDInheritanceDbContext, Common>>();
 
         });
 

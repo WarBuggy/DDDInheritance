@@ -12,19 +12,15 @@ using Volo.Abp;
 
 namespace DDDInheritance.Commons
 {
-    public abstract class Common : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public abstract class Common : FullAuditedAggregateRoot<Guid>, IMultiTenant, ICommon
     {
-        public virtual Guid? TenantId { get; set; }
-
+        public Guid? TenantId { get ; set; }
         [NotNull]
-        public virtual string Code { get; set; }
-
+        public string Code { get; set; }
         [CanBeNull]
-        public virtual string Name { get; set; }
-
-        public virtual Status? Status { get; set; }
-
-        public virtual Guid? Linked { get; set; }
+        public string Name { get; set; }
+        public Status? Status { get; set; }
+        public Guid? Linked { get; set; }
 
         public Common()
         {
@@ -44,5 +40,6 @@ namespace DDDInheritance.Commons
             Linked = linked;
         }
 
+       
     }
 }
