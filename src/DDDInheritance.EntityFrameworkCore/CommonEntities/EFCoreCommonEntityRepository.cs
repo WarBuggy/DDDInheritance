@@ -11,15 +11,16 @@ using DDDInheritance.EntityFrameworkCore;
 
 namespace DDDInheritance.CommonEntities
 {
-    public class EFCoreCommonEntityRepository<TEntity> : EfCoreRepository<DDDInheritanceDbContext, TEntity, Guid>, 
-        ICommonEntityRepository<TEntity> where TEntity : class, IBaseEntity
+    public class EFCoreCommonEntityRepository<T> : EfCoreRepository<DDDInheritanceDbContext, T, Guid>, 
+        ICommonEntityRepository<T> 
+        where T : class, IBaseEntity
     {
         public EFCoreCommonEntityRepository(IDbContextProvider<DDDInheritanceDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
 
-        protected virtual IQueryable<TEntity> ApplyFilter(
-            IQueryable<TEntity> query,
+        protected virtual IQueryable<T> ApplyFilter(
+            IQueryable<T> query,
             string filterText,
             string code = null,
             string name = null,
@@ -46,7 +47,7 @@ namespace DDDInheritance.CommonEntities
             return await query.LongCountAsync(GetCancellationToken(cancellationToken));
         }
 
-        public async Task<List<TEntity>> GetListAsync(
+        public async Task<List<T>> GetListAsync(
            string filterText,
            string code = null,
            string name = null,
@@ -61,6 +62,5 @@ namespace DDDInheritance.CommonEntities
             query = query.OrderBy(string.IsNullOrWhiteSpace(sorting) ? CommonEntityConsts.GetDefaultSorting(false) : sorting);
             return await query.PageBy(skipCount, maxResultCount).ToListAsync(cancellationToken);
         }
-
     }
 }

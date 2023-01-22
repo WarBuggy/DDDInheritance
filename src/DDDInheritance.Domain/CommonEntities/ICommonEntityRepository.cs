@@ -6,10 +6,10 @@ using Volo.Abp.Domain.Repositories;
 
 namespace DDDInheritance.CommonEntities
 {
-    public interface ICommonEntityRepository<TEntity> : IRepository<TEntity, Guid>
-        where TEntity : class, IBaseEntity
+    public interface ICommonEntityRepository<T> : IRepository<T, Guid>
+        where T : class, IBaseEntity
     {
-        Task<List<TEntity>> GetListAsync(
+        Task<List<T>> GetListAsync(
             string filterText = null,
             string code = null,
             string name = null,
