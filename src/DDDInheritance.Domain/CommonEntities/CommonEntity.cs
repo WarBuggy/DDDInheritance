@@ -1,12 +1,12 @@
 ﻿using JetBrains.Annotations;
 using System;
 using Volo.Abp;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
-using Volo.Abp.MultiTenancy;
 
 namespace DDDInheritance.CommonEntities
 {
-    public abstract class CommonEntity : FullAuditedAggregateRoot<Guid>, IMultiTenant, IBaseEntity
+    public abstract class CommonEntity : FullAuditedAggregateRoot<Guid>, IBaseEntity
     {
         public Guid? TenantId { get; set; }
         [NotNull]
@@ -34,6 +34,9 @@ namespace DDDInheritance.CommonEntities
             Linked = linked;
         }
 
+        public void SetId(Guid id)
+        {
+            Id = id;
+        }
     }
-
 }
