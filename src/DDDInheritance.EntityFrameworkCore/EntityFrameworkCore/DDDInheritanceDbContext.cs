@@ -17,6 +17,10 @@ using Volo.Saas.Editions;
 using Volo.Saas.Tenants;
 using Volo.Abp.Gdpr;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
+using static Azure.Core.HttpHeader;
+using Volo.Abp.EntityFrameworkCore.Modeling;
+using DDDInheritance.CommonEntities;
+using DDDInheritance.Alphas;
 
 namespace DDDInheritance.EntityFrameworkCore;
 
@@ -29,6 +33,9 @@ public class DDDInheritanceDbContext :
     ISaasDbContext
 {
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
+
+    public DbSet<CommonEntity> CommonEntities { get; set; }
+    public DbSet<Alpha> Alphas { get; set; }
 
     #region Entities from the modules
 
@@ -91,5 +98,17 @@ public class DDDInheritanceDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+
+        builder.Entity<CommonEntity>(b =>
+        {
+            b.UseTpcMappingStrategy();
+            //b.ToTable(DDDInheritanceConsts.DbTablePrefix + "Commons", DDDInheritanceConsts.DbSchema);
+            b.ConfigureByConvention();
+            b.Property(x => x.TenantId).HasColumnName(nameof(CommonEntity.TenantId));
+            b.Property(x => x.Code).HasColumnName(nameof(CommonEntity.Code)).IsRequired().HasMaxLength(CommonEntityConsts.CodeMaxLength);
+            b.Property(x => x.Name).HasColumnName(nameof(CommonEntity.Name)).HasMaxLength(CommonEntityConsts.NameMaxLength);
+            b.Property(x => x.Status).HasColumnName(nameof(CommonEntity.Status));
+            b.Property(x => x.Linked).HasColumnName(nameof(CommonEntity.Linked));
+        });
     }
 }
