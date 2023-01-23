@@ -28,8 +28,6 @@ namespace DDDInheritance.CommonEntities
 {
     [RemoteService(IsEnabled = false)]
     //[Authorize(DDDInheritancePermissions.Commons.Default)]
-
-
     public class CommonEntitiesAppService<T, TManager> : ApplicationService, ICommonEntitiesAppService
         where T : class, IBaseEntity
         where TManager : class, ICommonEntityManager<T, ICommonEntityRepository<T>>
