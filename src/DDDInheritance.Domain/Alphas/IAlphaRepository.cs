@@ -9,5 +9,6 @@ namespace DDDInheritance.Alphas
 {
     public interface IAlphaRepository : ICommonEntityRepository<Alpha>
     {
+        Task<Status?> GetStatus(Guid id);
     }
 }

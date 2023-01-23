@@ -14,5 +14,10 @@ namespace DDDInheritance.Alphas
         public EFCoreAlphaRepository(IDbContextProvider<DDDInheritanceDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
+
+        public async Task<Status?> GetStatus(Guid id)
+        {
+            return (await GetAsync(id)).Status;
+        }
     }
 }
