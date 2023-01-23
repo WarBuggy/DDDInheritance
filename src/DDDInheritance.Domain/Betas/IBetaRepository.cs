@@ -2,7 +2,7 @@
 
 namespace DDDInheritance.Betas
 {
-    public class Beta : CommonEntity
+    public interface IBetaRepository : ICommonEntityRepository<Beta>
     {
     }
 }

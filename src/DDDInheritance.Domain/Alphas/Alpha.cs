@@ -1,8 +1,9 @@
-﻿using DDDInheritance.Commons;
+﻿
+using DDDInheritance.CommonEntities;
 
 namespace DDDInheritance.Alphas
 {
-    public class Alpha : Common
+    public class Alpha : CommonEntity
     {
     }
 }

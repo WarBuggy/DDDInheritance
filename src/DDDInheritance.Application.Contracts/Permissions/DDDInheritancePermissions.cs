@@ -13,12 +13,20 @@ public static class DDDInheritancePermissions
 
     //Add your own permission names. Example:
     //public const string MyPermission1 = GroupName + ".MyPermission1";
-
-    public static class Commons
+    public static class Alphas
     {
-        public const string Default = GroupName + ".Commons";
+        public const string Default = GroupName + ".Alphas";
+        public const string Edit = Default + ".Edit";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public static class Betas
+    {
+        public const string Default = GroupName + ".Betas";
         public const string Edit = Default + ".Edit";
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
 }
+

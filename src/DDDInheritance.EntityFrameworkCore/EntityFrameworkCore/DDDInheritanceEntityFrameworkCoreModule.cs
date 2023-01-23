@@ -17,6 +17,8 @@ using Volo.Saas.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
 using Volo.Abp.Gdpr;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
+using DDDInheritance.CommonEntities;
+using DDDInheritance.Alphas;
 
 namespace DDDInheritance.EntityFrameworkCore;
 
@@ -49,9 +51,10 @@ public class DDDInheritanceEntityFrameworkCoreModule : AbpModule
         {
             /* Remove "includeAllEntities: true" to create
              * default repositories only for aggregate roots */
-            options.AddDefaultRepositories(includeAllEntities: true);
-            options.AddRepository<Common, Commons.EfCoreCommonRepository>();
-
+            //options.AddDefaultRepositories(includeAllEntities: true);
+            //options.AddRepository<IBaseEntity, EFCoreCommonEntityRepository<IBaseEntity>>();
+            //options.AddRepository<Alpha, EFCoreAlphaRepository>();
+            //options.AddRepository<Beta, EFCoreBetaRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

@@ -4,6 +4,7 @@ using DDDInheritance.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace DDDInheritance.Migrations
 {
     [DbContext(typeof(DDDInheritanceDbContext))]
-    partial class DDDInheritanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230122055009_AddAlphaEntity")]
+    partial class AddAlphaEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2217,13 +2220,6 @@ namespace DDDInheritance.Migrations
                     b.HasBaseType("DDDInheritance.CommonEntities.CommonEntity");
 
                     b.ToTable("Alphas");
-                });
-
-            modelBuilder.Entity("DDDInheritance.Betas.Beta", b =>
-                {
-                    b.HasBaseType("DDDInheritance.CommonEntities.CommonEntity");
-
-                    b.ToTable("Betas");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
