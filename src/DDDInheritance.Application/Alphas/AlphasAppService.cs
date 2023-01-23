@@ -10,11 +10,10 @@ using Volo.Abp.Caching;
 
 namespace DDDInheritance.Alphas
 {
-    public class AlphasAppService : CommonEntitiesAppService<Alpha, 
-        ICommonEntityManager<Alpha, ICommonEntityRepository<Alpha>>>, IAlphasAppService
+    public class AlphasAppService : CommonEntitiesAppService<Alpha, IAlphaManager>, IAlphasAppService
     {
-        public AlphasAppService(ICommonEntityRepository<Alpha> repository,
-            ICommonEntityManager<Alpha, ICommonEntityRepository<Alpha>> manager,
+        public AlphasAppService(IAlphaRepository repository,
+            IAlphaManager manager,
             IDistributedCache<CommonEntityExcelDownloadTokenCacheItem, string> excelDownloadTokenCache) 
             :base(repository, manager, excelDownloadTokenCache)
         {
