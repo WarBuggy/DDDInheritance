@@ -26,12 +26,16 @@
     "NewsletterPreference_Default": "Default Newsletter",
     "NewsletterPrivacyAcceptMessage": "I accept the <a href='/privacy-policy'>Privacy Policy</a>.",
     "ChangeLanguage": "Change language",
-    "DDDInheritance:EnumValue:Status:NEW": "New",
-    "DDDInheritance:EnumValue:Status:OPEN": "Open",
-    "DDDInheritance:EnumValue:Status:INPROGRESS": "In progress",
-    "DDDInheritance:EnumValue:Status:CLOSED": "Closed",
-    "DDDInheritance:EnumValue:Status:CANCELLED": "Cancelled",
-    "DDDInheritance:EnumValue:Status:NULL": "Unknown"
+    "Permission:DDDInheritance:Create": "Create",
+    "Permission:DDDInheritance:Edit": "Edit",
+    "Permission:DDDInheritance:Delete": "Delete",
+    "EnumValue:DDDInheritance:Status:NEW": "New",
+    "EnumValue:DDDInheritance:Status:OPEN": "Open",
+    "EnumValue:DDDInheritance:Status:INPROGRESS": "In progress",
+    "EnumValue:DDDInheritance:Status:CLOSED": "Closed",
+    "EnumValue:DDDInheritance:Status:CANCELLED": "Cancelled",
+    "EnumValue:DDDInheritance:Status:NULL": "Unknown",
+    "Permission:DDDInheritance:Alphas": "Alpha Management",
+    "Permission:DDDInheritance:Betas": "Beta Management"
   }
 }
- 

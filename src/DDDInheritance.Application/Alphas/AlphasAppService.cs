@@ -24,7 +24,7 @@ namespace DDDInheritance.Alphas
         {
             Status? status = await ((IAlphaRepository)_repository).GetStatus(id);
             string statusString = status == null ? "NULL" : status.ToString();
-            return _localizer[$"DDDInheritance:EnumValue:Status:{statusString}"];
+            return _localizer[$"EnumValue:DDDInheritance:Status:{statusString}"];
         }
     }
 }
