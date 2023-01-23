@@ -25,6 +25,13 @@
     "NewsletterInfo": "Get information about the latest happenings.",
     "NewsletterPreference_Default": "Default Newsletter",
     "NewsletterPrivacyAcceptMessage": "I accept the <a href='/privacy-policy'>Privacy Policy</a>.",
-    "ChangeLanguage": "Change language"
+    "ChangeLanguage": "Change language",
+    "DDDInheritance:EnumValue:Status:NEW": "New",
+    "DDDInheritance:EnumValue:Status:OPEN": "Open",
+    "DDDInheritance:EnumValue:Status:INPROGRESS": "In progress",
+    "DDDInheritance:EnumValue:Status:CLOSED": "Closed",
+    "DDDInheritance:EnumValue:Status:CANCELLED": "Cancelled",
+    "DDDInheritance:EnumValue:Status:NULL": "Unknown"
   }
 }
+ 
