@@ -19,7 +19,7 @@ namespace DDDInheritance.CommonEntities
     [Route("api/app/commons")]
     public class CommonControllers : AbpController, ICommonEntitiesAppService
     {
-        private readonly ICommonEntitiesAppService _appService;
+        protected readonly ICommonEntitiesAppService _appService;
 
         public CommonControllers(ICommonEntitiesAppService appService)
         {

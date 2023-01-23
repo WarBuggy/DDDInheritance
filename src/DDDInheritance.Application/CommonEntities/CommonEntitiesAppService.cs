@@ -32,9 +32,9 @@ namespace DDDInheritance.CommonEntities
         where T : class, IBaseEntity
         where TManager : class, ICommonEntityManager<T, ICommonEntityRepository<T>>
     {
-        private readonly IDistributedCache<CommonEntityExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
-        private readonly ICommonEntityRepository<T> _repository;
-        private readonly ICommonEntityManager<T, ICommonEntityRepository<T>> _manager;
+        protected readonly IDistributedCache<CommonEntityExcelDownloadTokenCacheItem, string> _excelDownloadTokenCache;
+        protected readonly ICommonEntityRepository<T> _repository;
+        protected readonly ICommonEntityManager<T, ICommonEntityRepository<T>> _manager;
 
         public CommonEntitiesAppService(ICommonEntityRepository<T> repository,
             ICommonEntityManager<T, ICommonEntityRepository<T>> manager, 
