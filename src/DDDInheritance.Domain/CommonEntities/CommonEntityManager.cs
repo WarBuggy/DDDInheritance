@@ -11,7 +11,7 @@ namespace DDDInheritance.CommonEntities
        where T : class, IBaseEntity, new()
        where TRepository : class, ICommonEntityRepository<T>
     {
-        private readonly TRepository _repository;
+        protected readonly TRepository _repository;
 
         public CommonEntityManager(TRepository repository)
         {
