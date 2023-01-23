@@ -1,4 +1,5 @@
 ﻿using DDDInheritance.CommonEntities;
+using DDDInheritance.Permissions;
 using Volo.Abp.Caching;
 
 namespace DDDInheritance.Betas
@@ -8,7 +9,7 @@ namespace DDDInheritance.Betas
         public BetasAppService(IBetaRepository repository,
             IBetaManager manager,
             IDistributedCache<CommonEntityExcelDownloadTokenCacheItem, string> excelDownloadTokenCache)
-            : base(repository, manager, excelDownloadTokenCache)
+            : base(repository, manager, DDDInheritancePermissions.Betas.Default, excelDownloadTokenCache)
         {
         }
     }

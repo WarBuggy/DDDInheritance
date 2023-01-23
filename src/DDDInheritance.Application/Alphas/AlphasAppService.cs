@@ -4,6 +4,8 @@ using Microsoft.Extensions.Localization;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.Caching;
+using Microsoft.AspNetCore.Authorization;
+using DDDInheritance.Permissions;
 
 namespace DDDInheritance.Alphas
 {
@@ -15,11 +17,12 @@ namespace DDDInheritance.Alphas
             IAlphaManager manager,
             IDistributedCache<CommonEntityExcelDownloadTokenCacheItem, string> excelDownloadTokenCache,
             IStringLocalizer<DDDInheritanceResource> localizer)
-            : base(repository, manager, excelDownloadTokenCache)
+            : base(repository, manager, DDDInheritancePermissions.Alphas.Default, excelDownloadTokenCache)
         {
             _localizer = localizer;
         }
 
+        [Authorize(DDDInheritancePermissions.Alphas.Default)]
         public async Task<string> GetStatus(Guid id)
         {
             Status? status = await ((IAlphaRepository)_repository).GetStatus(id);
