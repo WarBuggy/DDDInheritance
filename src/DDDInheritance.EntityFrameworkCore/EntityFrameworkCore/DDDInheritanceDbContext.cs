@@ -17,10 +17,10 @@ using Volo.Saas.Editions;
 using Volo.Saas.Tenants;
 using Volo.Abp.Gdpr;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
-using static Azure.Core.HttpHeader;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using DDDInheritance.CommonEntities;
 using DDDInheritance.Alphas;
+using DDDInheritance.Betas;
 
 namespace DDDInheritance.EntityFrameworkCore;
 
@@ -36,6 +36,7 @@ public class DDDInheritanceDbContext :
 
     public DbSet<CommonEntity> CommonEntities { get; set; }
     public DbSet<Alpha> Alphas { get; set; }
+    public DbSet<Beta> Betas { get; set; }
 
     #region Entities from the modules
 

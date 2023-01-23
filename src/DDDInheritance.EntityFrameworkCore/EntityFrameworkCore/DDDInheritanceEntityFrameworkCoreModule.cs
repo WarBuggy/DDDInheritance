@@ -48,11 +48,12 @@ public class DDDInheritanceEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<DDDInheritanceDbContext>(options =>
         {
-                /* Remove "includeAllEntities: true" to create
-                 * default repositories only for aggregate roots */
+            /* Remove "includeAllEntities: true" to create
+             * default repositories only for aggregate roots */
             //options.AddDefaultRepositories(includeAllEntities: true);
             //options.AddRepository<IBaseEntity, EFCoreCommonEntityRepository<IBaseEntity>>();
             //options.AddRepository<Alpha, EFCoreAlphaRepository>();
+            //options.AddRepository<Beta, EFCoreBetaRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>
