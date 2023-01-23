@@ -34,9 +34,6 @@ public class DDDInheritanceDbContext :
     IIdentityProDbContext,
     ISaasDbContext
 {
-    public DbSet<Common> Commons { get; set; }
-    public DbSet<Alpha> Alphas { get; set; }
-    public DbSet<Beta> Betas { get; set; }
     /* Add DbSet properties for your Aggregate Roots / Entities here. */
 
     public DbSet<CommonEntity> CommonEntities { get; set; }
