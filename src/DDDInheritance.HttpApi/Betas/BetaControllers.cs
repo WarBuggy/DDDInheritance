@@ -11,6 +11,7 @@ namespace DDDInheritance.Betas
     [Area("app")]
     [ControllerName("Beta")]
     [Route("api/app/betas")]
+    [ApiExplorerSettings(IgnoreApi = false)]
     public class BetaControllers : CommonControllers, IBetasAppService
     {
         public BetaControllers(IBetasAppService appService) : base(appService)

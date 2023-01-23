@@ -1,22 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Content;
 using Volo.Abp.Gdpr;
-using Volo.Abp;
 
 namespace DDDInheritance.CommonEntities
 {
 
-    [RemoteService]
-    [Area("app")]
-    [ControllerName("Common")]
-    [Route("api/app/commons")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CommonControllers : AbpController, ICommonEntitiesAppService
     {
         protected readonly ICommonEntitiesAppService _appService;

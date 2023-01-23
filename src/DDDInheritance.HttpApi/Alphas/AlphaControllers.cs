@@ -10,6 +10,7 @@ namespace DDDInheritance.Alphas
     [Area("app")]
     [ControllerName("Alpha")]
     [Route("api/app/alphas")]
+    [ApiExplorerSettings(IgnoreApi = false)]
     public class AlphaControllers : CommonControllers, IAlphasAppService
     {
         public AlphaControllers(IAlphasAppService appService) : base(appService) 
