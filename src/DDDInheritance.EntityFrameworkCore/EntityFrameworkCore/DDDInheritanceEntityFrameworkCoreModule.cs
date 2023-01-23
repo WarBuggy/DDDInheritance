@@ -50,9 +50,9 @@ public class DDDInheritanceEntityFrameworkCoreModule : AbpModule
         {
                 /* Remove "includeAllEntities: true" to create
                  * default repositories only for aggregate roots */
-            options.AddDefaultRepositories(includeAllEntities: true);
-            options.AddRepository<IBaseEntity, EFCoreCommonEntityRepository<IBaseEntity>>();
-            options.AddRepository<Alpha, EFCoreAlphaRepository>();
+            //options.AddDefaultRepositories(includeAllEntities: true);
+            //options.AddRepository<IBaseEntity, EFCoreCommonEntityRepository<IBaseEntity>>();
+            //options.AddRepository<Alpha, EFCoreAlphaRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>
