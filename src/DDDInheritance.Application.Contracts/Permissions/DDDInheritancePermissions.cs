@@ -1,6 +1,3 @@
-using DDDInheritance.Alphas;
-using DDDInheritance.Betas;
-
 namespace DDDInheritance.Permissions;
 
 public static class DDDInheritancePermissions
